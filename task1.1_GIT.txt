@@ -1,0 +1,13 @@
+7349953 HEAD@{0}: merge develop: Fast-forward
+d43eaa8 HEAD@{1}: checkout: moving from develop to main
+7349953 HEAD@{2}: merge styles: Fast-forward
+51e3388 HEAD@{3}: merge images: Fast-forward
+29d7986 HEAD@{4}: checkout: moving from styles to develop
+7349953 HEAD@{5}: commit: commit 4
+51e3388 HEAD@{6}: checkout: moving from images to styles
+51e3388 HEAD@{7}: commit: commit 3
+29d7986 HEAD@{8}: checkout: moving from develop to images
+29d7986 HEAD@{9}: commit: commit 3
+d43eaa8 HEAD@{10}: checkout: moving from main to develop
+d43eaa8 HEAD@{11}: commit: commit 1
+32c0daf HEAD@{12}: clone: from https://github.com/ysv411/DevOps_online_Kyiv_2021Q4/
