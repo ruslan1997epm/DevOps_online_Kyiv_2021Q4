@@ -4,9 +4,11 @@
 #run script every minute : * * * * * C.sh
 # -u root (run script from root's crontab)
 
-dst="/home/yas/test-dst"
+src=$1
+dst=$2
+rm ./LOG.log
 
-arr=( $(ls .) )
+arr=( $(ls $src) )
 
 for n in "${arr[@]}"
 do
