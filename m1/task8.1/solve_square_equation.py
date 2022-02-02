@@ -1,47 +1,55 @@
 import math
 
-
 def main():
      pass
 
-
-def validate_param(coef):
+def validate(coef):
+     err = int(0)
      for k in [3, 2, 1]:
          try:
              print("Enter coef", coef, ":"),
              a = float(input())
          except ValueError:
-             print("Invalid input, accepting only numbers. Retries left
+             print("Invalid input, accepting only numbers. Retries left 
 [", k-1, "]")
+             err = 1
          else:
-             print(a)
-             return a
+             err = 0
+             return a, err
 
-
-def discriminant(a, b, c):
+def discr(a, b, c):
      d = math.pow(b, 2)-4*a*c
      return d
 
-# def roots(b, d, a):
-#    pass
-#   x1=(-b+sqrt(d))/(2*a)
-#   x2=(-b-sqrt(d))/(2*a)
+def roots():
+     a, err = validate('A')
+     if err == 1: wasted()
+     else:
+         b, err = validate('B')
+         if err == 1: wasted()
+         else:
+             c, err = validate('C')
+             if err == 1: wasted()
+     d = discr(a, b, c)
+     print("D =", d)
+     if d < 0:
+         print("No Real roots. Exiting...")
+         quit()
+     x1 = round((-b + math.sqrt(d)) / (2 * a), 2)
+     x2 = round((-b - math.sqrt(d)) / (2 * a), 2)
+     if d == 0:
+         print("Roots are equal (one Real root):", x1)
+     if d > 0:
+         print("Two Real roots:", x1, ",", x2)
+     return x1, x2
 
-# def solve_square(a,b,c): #->roots:
-#    pass
+def result():
+     roots()
 
-# def print_square(a,b,c,roots):
-#    pass
-
+def wasted():
+     print("You wasted all your three wishes...")
+     quit()
 
 if __name__ == "__main__":
+     result()
 
-     a = validate_param('A')
-     b = validate_param('B')
-     c = validate_param('C')
-     print(discriminant(a, b, c))
-
-#   if type(float(a)) not in [int, float]:
-#        print("Incorrect input. Accepting only numbers.")
-#        quit()
-#   print(type(a))
