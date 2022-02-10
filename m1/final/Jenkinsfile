@@ -1,0 +1,58 @@
+pipeline {
+	agent any
+	environment {
+		bnum = "${BUILD_NUMBER}"
+		jn = "${JOB_NAME}"
+	}
+	stages {
+		stage('init') {
+			steps {
+				echo 'Initialize...'
+				sh '''#!/bin/bash
+				      mkdir /var/lib/jenkins/release/QA/${BUILD_NUMBER}
+				      mkdir /var/lib/jenkins/release/STG/${BUILD_NUMBER}
+				'''
+			}			
+		}
+		stage('build') {
+			steps {
+				echo 'Building...'
+			}
+		}
+		stage('test') {
+			steps {
+				echo 'Testing, to QA Env'
+				sh '''#!/bin/bash
+					cp /var/lib/jenkins/workspace/${JOB_NAME}/*  /var/lib/jenkins/release/QA/${BUILD_NUMBER}
+				'''
+				// mail qa-team@company.com -s "Build ${BUILD_NUMBER} is finished and ready for testing"
+			}
+		}
+		stage('deploy') {
+			steps {
+				echo 'Deploying, to STAGE Env'
+				sh '''#!/bin/bash
+					cp /var/lib/jenkins/workspace/${JOB_NAME}/*  /var/lib/jenkins/release/STG/${BUILD_NUMBER}
+				'''
+			}
+		}
+	}
+	
+	post {
+		always {
+			echo "FINISHED BUILD# ${env.bnum}"
+
+		}
+		
+		success {
+			echo 'Success'
+			sh '''#!/bin/bash
+				scp -v -o StrictHostKeyChecking=no -i /var/lib/jenkins/proj.pem /var/lib/jenkins/workspace/${jn}/* ec2-user@ec2-35-158-138-182.eu-central-1.compute.amazonaws.com:/var/www/html/
+			'''
+		}
+		
+		failure {
+			echo 'Failure'
+		}
+	}
+}
