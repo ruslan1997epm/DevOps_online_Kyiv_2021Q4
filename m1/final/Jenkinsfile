@@ -47,7 +47,7 @@ pipeline {
 		success {
 			echo 'Success'
 			sh '''#!/bin/bash
-				scp -v -o StrictHostKeyChecking=no -i /var/lib/jenkins/proj.pem /var/lib/jenkins/workspace/${jn}/* ec2-user@ec2-35-158-138-182.eu-central-1.compute.amazonaws.com:/var/www/html/
+				scp -v -o StrictHostKeyChecking=no -i /var/lib/jenkins/aws-key /var/lib/jenkins/workspace/${jn}/* ec2-user@ec2-35-158-138-182.eu-central-1.compute.amazonaws.com:/var/www/html/
 			'''
 		}
 		
